@@ -1,6 +1,7 @@
 var path = require('path')
 var webpack = require('webpack')
-
+var ROOT_PATH = path.resolve(__dirname);
+var SOURCE_PATH = path.resolve(ROOT_PATH, 'src');
 module.exports = {
   entry: './src/main.js',
   output: {
@@ -40,8 +41,17 @@ module.exports = {
     historyApiFallback: true,
     noInfo: true
   },
-  devtool: '#eval-source-map'
-}
+  devtool: '#eval-source-map',
+  //配置短路径引用
+  resolve: {
+    alias: {
+      node_modules: path.resolve(ROOT_PATH, 'node_modules'),
+      theme: path.resolve(ROOT_PATH, 'theme'),
+      page: path.resolve(SOURCE_PATH, 'page'),
+      utils: path.resolve(SOURCE_PATH, 'utils')
+    }
+  }
+};
 
 if (process.env.NODE_ENV === 'production') {
   module.exports.devtool = '#source-map'
