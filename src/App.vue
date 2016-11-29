@@ -22,7 +22,17 @@
     <el-step title="步骤 2" description="这是一段很长很长很长的描述性文字"></el-step>
     <el-step title="步骤 3" description="这是一段很长很长很长的描述性文字"></el-step>
   </el-steps>
+  <el-steps :space="100" :active="active" finish-status="success">
+  <el-step title="步骤 1"></el-step>
+  <el-step title="步骤 2"></el-step>
+  <el-step title="步骤 3"></el-step>
+</el-steps>
+
 <el-button style="margin-top: 12px;" @click.native="next">下一步</el-button>
+<el-button :plain="true" @click="open2">成功</el-button>
+  <el-button :plain="true" @click="open3">警告</el-button>
+  <el-button :plain="true" @click="open">消息</el-button>
+  <el-button :plain="true" @click="open4">错误</el-button>
 
     <h1>{{ msg }}</h1>
     <el-button @click.native="startHacking">Let's do it</el-button>
@@ -131,22 +141,41 @@ export default {
   },
 
   methods: {
-      next() {
-        if (this.active++ > 2) this.active = 0;
-    },
-      handleSelect(key, keyPath) {
-        console.log(key, keyPath);
-    },
-      onSubmit() {
-          console.log('submit!');
-    },
-    startHacking () {
-      this.$notify({
-        title: 'It Works',
-        message: 'We have laid the groundwork for you. Now it\'s your time to build something epic!',
-        duration: 6000
-      })
-    }
+      open() {
+        this.$message('这是一条消息提示');
+      },
+      open2() {
+        this.$message({
+          message: '恭喜你，这是一条成功消息',
+          type: 'success'
+        });
+      },
+        open3() {
+            this.$message({
+              message: '警告哦，这是一条警告消息',
+              type: 'warning'
+            });
+        },
+
+        open4() {
+            this.$message.error('错了哦，这是一条错误消息');
+        },
+          next() {
+            if (this.active++ > 2) this.active = 0;
+        },
+          handleSelect(key, keyPath) {
+            console.log(key, keyPath);
+        },
+          onSubmit() {
+              console.log('submit!');
+        },
+        startHacking () {
+          this.$notify({
+            title: 'It Works',
+            message: 'We have laid the groundwork for you. Now it\'s your time to build something epic!',
+            duration: 6000
+          })
+        }
   }
 }
 </script>
